@@ -1,7 +1,7 @@
 "use server";
 
 import { getSessionUser } from "@/lib/auth";
-import { getStripe } from "@/lib/stripe";
+import { getStripe, getAppBaseUrl } from "@/lib/stripe";
 import { headers } from "next/headers";
 
 export async function createDonationCheckout(amountInDollars: number) {
@@ -16,10 +16,7 @@ export async function createDonationCheckout(amountInDollars: number) {
     }
 
     const stripe = getStripe();
-    const headersList = headers();
-    const host = headersList.get("host") || "localhost:3000";
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const appUrl = `${protocol}://${host}`;
+    const appUrl = getAppBaseUrl();
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],

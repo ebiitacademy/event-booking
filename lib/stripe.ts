@@ -15,12 +15,18 @@ export function getStripe(): Stripe {
 }
 
 export function getAppBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
-  if (!url) {
-    throw new Error(
-      "NEXT_PUBLIC_APP_URL is not set (e.g. https://localhost:3000)"
-    );
+  let url = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
+  
+  if (!url && process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    url = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  } else if (!url && process.env.VERCEL_URL) {
+    url = `https://${process.env.VERCEL_URL}`;
   }
+
+  if (!url) {
+    url = "http://localhost:3000";
+  }
+  
   return url;
 }
 
