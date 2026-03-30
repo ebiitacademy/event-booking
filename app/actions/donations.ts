@@ -2,7 +2,6 @@
 
 import { getSessionUser } from "@/lib/auth";
 import { getStripe, getAppBaseUrl } from "@/lib/stripe";
-import { headers } from "next/headers";
 
 export async function createDonationCheckout(amountInDollars: number) {
   try {
