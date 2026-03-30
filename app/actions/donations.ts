@@ -50,7 +50,7 @@ export async function createDonationCheckout(amountInDollars: number) {
     }
 
     return { url: session.url };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Donation checkout error:", error);
     return { error: "An unexpected error occurred." };
   }

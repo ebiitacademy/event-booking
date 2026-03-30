@@ -1,10 +1,8 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 
 export function AdminLogoutButton() {
-  const router = useRouter();
 
   async function handleLogout() {
     const supabase = createClient();

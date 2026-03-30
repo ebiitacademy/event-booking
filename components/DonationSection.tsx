@@ -17,7 +17,7 @@ export function DonationSection() {
     setError(null);
     setIsLoading(true);
 
-    let finalAmount = amount === "custom" ? parseFloat(customAmount) : amount;
+    const finalAmount = amount === "custom" ? parseFloat(customAmount) : amount;
 
     if (isNaN(finalAmount) || finalAmount <= 0) {
       setError("Please enter a valid amount.");
@@ -36,7 +36,7 @@ export function DonationSection() {
       } else if (result.url) {
         window.location.href = result.url;
       }
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
