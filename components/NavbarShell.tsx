@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useState } from "react";
 import { LogoutButton } from "@/components/LogoutButton";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type Props = {
   isLoggedIn: boolean;
@@ -49,82 +50,90 @@ export function NavbarShell({ isLoggedIn, isAdmin }: Props) {
           EventBook
         </Link>
 
-        {/* Desktop */}
-        <nav
-          className="hidden items-center gap-1 md:flex md:gap-2"
-          aria-label="Main"
-        >
-          <Link href="/" className={navLinkClass()}>
-            Events
-          </Link>
-          {isLoggedIn && (
-            <Link href="/bookings" className={navLinkClass()}>
-              My bookings
+        <div className="flex items-center gap-1 sm:gap-2">
+          {/* Desktop */}
+          <nav
+            className="hidden items-center gap-1 md:flex md:gap-2"
+            aria-label="Main"
+          >
+            <Link
+              href="/" className={navLinkClass()}>
+              Home
             </Link>
-          )}
-          {isAdmin && (
-            <Link href="/admin" className={navLinkClass(true)}>
-              Admin
+            <Link href="/events" className={navLinkClass()}>
+              Events
             </Link>
-          )}
-          {isLoggedIn ? (
-            <LogoutButton />
-          ) : (
-            <>
-              <Link href="/login" className={navLinkClass()}>
-                Log in
+            {isLoggedIn && (
+              <Link href="/bookings" className={navLinkClass()}>
+                My bookings
               </Link>
-              <Link
-                href="/register"
-                className="rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
-              >
-                Register
+            )}
+            {isAdmin && (
+              <Link href="/admin" className={navLinkClass(true)}>
+                Admin
               </Link>
-            </>
-          )}
-        </nav>
+            )}
+            {isLoggedIn ? (
+              <LogoutButton />
+            ) : (
+              <>
+                <Link href="/login" className={navLinkClass()}>
+                  Log in
+                </Link>
+                <Link
+                  href="/register"
+                  className="rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
+                >
+                  Register
+                </Link>
+              </>
+            )}
+          </nav>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-zinc-700 transition hover:bg-zinc-100 md:hidden dark:text-zinc-200 dark:hover:bg-zinc-800"
-          aria-expanded={open}
-          aria-controls={panelId}
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? (
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              aria-hidden
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18 18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              aria-hidden
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          )}
-        </button>
+          <ThemeToggle />
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-zinc-700 transition hover:bg-zinc-100 md:hidden dark:text-zinc-200 dark:hover:bg-zinc-800"
+            aria-expanded={open}
+            aria-controls={panelId}
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? (
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                aria-hidden
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                aria-hidden
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile panel */}

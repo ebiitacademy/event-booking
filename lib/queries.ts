@@ -15,12 +15,18 @@ function mapEvent(row: EventRowWithBookings): EventWithRemaining {
   };
 }
 
-export async function getEventsWithRemaining(): Promise<EventWithRemaining[]> {
+export async function getEventsWithRemaining(limit?: number): Promise<EventWithRemaining[]> {
   const supabase = createClient();
-  const { data, error } = await supabase
+  let query = supabase
     .from("events")
     .select("*, bookings(quantity)")
     .order("date", { ascending: true });
+
+  if (limit) {
+    query = query.limit(limit);
+  }
+
+  const { data, error } = await query;
 
   if (error || !data) return [];
   return (data as EventRowWithBookings[]).map(mapEvent);

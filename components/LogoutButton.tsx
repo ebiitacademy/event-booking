@@ -16,9 +16,8 @@ export function LogoutButton({ className }: Props) {
     setLoading(true);
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.refresh();
-    router.push("/");
     setLoading(false);
+    window.location.href = "/";
   }
 
   return (

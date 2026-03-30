@@ -1,14 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-export function LoginForm() {
+export function AdminLoginForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const next = searchParams.get("next") || "/";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +26,7 @@ export function LoginForm() {
       setError(signErr.message);
       return;
     }
-    window.location.href = next.startsWith("/") ? next : "/";
+    window.location.href = "/admin";
   }
 
   return (
@@ -38,11 +35,11 @@ export function LoginForm() {
       className="mx-auto max-w-md space-y-5 rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
     >
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-white">
-          Log in
+        <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
+          Admin Login
         </h1>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Use the email and password you registered with.
+          Enter your highly secured administrator credentials.
         </p>
       </div>
       <div>
@@ -50,7 +47,7 @@ export function LoginForm() {
           htmlFor="email"
           className="block text-sm font-medium text-zinc-700 dark:text-zinc-300"
         >
-          Email
+          Administrator Email
         </label>
         <input
           id="email"
@@ -59,7 +56,7 @@ export function LoginForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+          className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-950 dark:text-white"
         />
       </div>
       <div>
@@ -76,7 +73,7 @@ export function LoginForm() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+          className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-950 dark:text-white"
         />
       </div>
       {error && (
@@ -87,15 +84,13 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-zinc-900 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
+        className="mt-2 w-full rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50"
       >
-        {loading ? "Signing in…" : "Sign in"}
+        {loading ? "Authenticating…" : "Secure Login"}
       </button>
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
-        No account?{" "}
-        <Link href="/register" className="font-medium text-violet-600 hover:underline dark:text-violet-400">
-          Register
-        </Link>
+      
+      <p className="text-center text-xs text-zinc-500 dark:text-zinc-500 mt-4">
+        Restricted access. This terminal is strictly for authorized personnel.
       </p>
     </form>
   );
